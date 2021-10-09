@@ -1,6 +1,6 @@
 .UpSinglePage {
   position: relative;
-  .backgroundSingleMmovie {
+  .backgroundSingleMovie {
     position: relative;
     width: 100%;
     height: 500px;
@@ -10,5 +10,83 @@
     width: 320px;
     height: 400px;
     top: 45px;
+  }
+}
+.DescriptionLayOut {
+  position: relative;
+}
+.DescriptionSingleMovie {
+  padding-left: 50px;
+  padding-top: 20px;
+  .TitleSingleMovie {
+    font-family: "MmdBold", Courier, monospace;
+    font-size: 18px;
+    h2::first-letter {
+      color: red;
+    }
+  }
+  .GenresSingleMovie,
+  .LanguageSingleMovie {
+    font-family: "MmdBold", Courier, monospace;
+    margin-bottom: 20px;
+  }
+  .GenresSingleMovie,
+  .LanguageSingleMovie {
+    span {
+      border-style: groove;
+      font-size: 15px;
+      padding-right: 5px;
+    }
+  }
+  .ReleaseDateSingle,
+  .ReleaseOrNot {
+    margin-bottom: 20px;
+    font-family: Mmdbold, Helvetica, sans-serif;
+    span {
+      color: royalblue;
+    }
+  }
+  .RateSingleMovie,
+  .RateCountSingle {
+    margin-bottom: 20px;
+
+    font-family: Mmdbold, Helvetica, sans-serif;
+    span {
+      color: red;
+    }
+  }
+  .BudgetSingleMovie {
+    margin-bottom: 20px;
+
+    font-family: Mmdbold, Helvetica, sans-serif;
+    span {
+      color: seagreen;
+    }
+  }
+  .OverViewSingleMovie {
+    font-family: MmdReg, Helvetica, sans-serif;
+    font-size: 17px;
+    word-spacing: 1px;
+  }
+}
+
+.SideMovieCard {
+  h4 {
+    color: royalblue;
+    margin-top: 20px;
+    font-family: MmdBold, Helvetica, sans-serif;
+    text-align: center;
+  }
+  .ImgCompany {
+    margin-top: 50px;
+    width: 100%;
+    max-height: 100px;
+    display: inline-flex;
+    justify-content: center;
+  }
+  .CompanyName {
+    font-family: MmdBold, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 12px;
   }
 }

@@ -5,6 +5,7 @@ import "swiper/swiper-bundle.css";
 import { Badge, Card } from "antd";
 import { VideoCameraOutlined } from "@ant-design/icons";
 import useMovieDB from "../../hooks/useMovieDB";
+import { Link } from "react-router-dom";
 
 const { Meta } = Card;
 const PopMovieSlider = () => {
@@ -43,33 +44,37 @@ const PopMovieSlider = () => {
           ) : (
             data.results.map((movie) => (
               <SwiperSlide key={movie.id}>
-                <Card
-                  hoverable
-                  style={{ width: "100%", borderRadius: 25 }}
-                  cover={
-                    <img
-                      style={{ borderRadius: 15 }}
-                      alt="example"
-                      src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-                    />
-                  }
-                >
-                  <Meta
-                    avatar={<VideoCameraOutlined style={{ color: "green" }} />}
-                    title={movie.title}
-                    description={
-                      <Badge
-                        count={`${movie.vote_average}`}
-                        style={{
-                          cursor: "pointer",
-                          backgroundColor: "gold",
-                          color: "black",
-                          fontSize: "14px",
-                        }}
+                <Link to={`/movie/${movie.id}`}>
+                  <Card
+                    hoverable
+                    style={{ width: "100%", borderRadius: 25 }}
+                    cover={
+                      <img
+                        style={{ borderRadius: 15 }}
+                        alt="example"
+                        src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
                       />
                     }
-                  />
-                </Card>
+                  >
+                    <Meta
+                      avatar={
+                        <VideoCameraOutlined style={{ color: "green" }} />
+                      }
+                      title={movie.title}
+                      description={
+                        <Badge
+                          count={`${movie.vote_average}`}
+                          style={{
+                            cursor: "pointer",
+                            backgroundColor: "gold",
+                            color: "black",
+                            fontSize: "14px",
+                          }}
+                        />
+                      }
+                    />
+                  </Card>
+                </Link>
               </SwiperSlide>
             ))
           )}
