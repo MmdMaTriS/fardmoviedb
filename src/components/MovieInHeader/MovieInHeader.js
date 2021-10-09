@@ -10,26 +10,26 @@ const MovieInHeader = () => {
   return (
     <>
       <div className="MostViewVideo">
-        <Swiper
-          style={{
-            "--swiper-navigation-color": "#fff",
-            "--swiper-pagination-color": "#fff",
-          }}
-          speed={600}
-          parallax={true}
-          className="mySwiper"
-        >
-          {loading ? (
-            <h1>Loading...</h1>
-          ) : (
-            data.results.slice(randomVideo, randomVideo + 1).map((movie) => (
-              <>
+        {loading ? (
+          <h1>Loading...</h1>
+        ) : (
+          data.results.slice(randomVideo, randomVideo + 1).map((movie) => (
+            <>
+              <Swiper
+                style={{
+                  "--swiper-navigation-color": "#fff",
+                  "--swiper-pagination-color": "#fff",
+                }}
+                speed={600}
+                parallax={true}
+                className="mySwiper"
+              >
                 <div
                   key={movie.id}
                   slot="container-start"
                   className="parallax-bg"
                   style={{
-                    "background-image": `url(https://image.tmdb.org/t/p/w780/${movie.backdrop_path})`,
+                    backgroundImage: `url(https://image.tmdb.org/t/p/w1280/${movie.backdrop_path})`,
                     position: "absolute",
                     left: 0,
                     top: 0,
@@ -87,10 +87,10 @@ const MovieInHeader = () => {
                     </div>
                   </div>
                 </SwiperSlide>
-              </>
-            ))
-          )}
-        </Swiper>
+              </Swiper>
+            </>
+          ))
+        )}
       </div>
     </>
   );
