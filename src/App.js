@@ -1,11 +1,15 @@
 import { Route, Switch } from "react-router";
 import Home from "./pages/Home/Home";
+import SingleMovie from "./pages/Movie/SingleMovie";
 
 function App() {
   return (
     <Switch>
       <Route path="/" exact>
         <Home />
+      </Route>
+      <Route path="/movie/:id">
+        <SingleMovie />
       </Route>
       <Route path="*">
         <h1>404 Not Found</h1>
