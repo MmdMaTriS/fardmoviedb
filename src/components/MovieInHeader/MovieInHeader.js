@@ -29,7 +29,7 @@ const MovieInHeader = () => {
                   slot="container-start"
                   className="parallax-bg"
                   style={{
-                    backgroundImage: `url(https://image.tmdb.org/t/p/w1280/${movie.backdrop_path})`,
+                    "background-image": `url(https://image.tmdb.org/t/p/w1280/${movie.backdrop_path})`,
                   }}
                   data-swiper-parallax="-23%"
                 ></div>
