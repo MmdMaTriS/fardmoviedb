@@ -6,7 +6,7 @@ import "swiper/swiper-bundle.css";
 import useMovieDB from "../../hooks/useMovieDB";
 const MovieInHeader = () => {
   const { data, loading } = useMovieDB("/movie/upcoming");
-  let randomVideo = Math.floor(Math.random() * 20);
+  let randomVideo = Math.floor(Math.random() * 19);
   return (
     <>
       <div className="MostViewVideo">
