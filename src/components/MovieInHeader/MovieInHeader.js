@@ -30,6 +30,13 @@ const MovieInHeader = () => {
                   className="parallax-bg"
                   style={{
                     "background-image": `url(https://image.tmdb.org/t/p/w1280/${movie.backdrop_path})`,
+                    position: "absolute",
+                    left: 0,
+                    top: 0,
+                    height: "100%",
+                    width: "100%",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
                   }}
                   data-swiper-parallax="-23%"
                 ></div>
