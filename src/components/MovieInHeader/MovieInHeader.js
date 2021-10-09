@@ -29,7 +29,7 @@ const MovieInHeader = () => {
                   slot="container-start"
                   className="parallax-bg"
                   style={{
-                    "background-image": `url(https://image.tmdb.org/t/p/w1280/${movie.backdrop_path})`,
+                    "background-image": `url(https://image.tmdb.org/t/p/w780/${movie.backdrop_path})`,
                     position: "absolute",
                     left: 0,
                     top: 0,
