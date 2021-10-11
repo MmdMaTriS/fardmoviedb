@@ -9,7 +9,6 @@ const { Meta } = Card;
 
 const PopularMovie = () => {
   const { loading, data } = useMovieDB("/movie/popular");
-  console.log(data);
   return (
     <div>
       <Layout>

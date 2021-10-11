@@ -9,7 +9,6 @@ const { Meta } = Card;
 
 const TopMovie = () => {
   const { loading, data } = useMovieDB("/movie/top_rated");
-  console.log(data);
   return (
     <div>
       <Layout>

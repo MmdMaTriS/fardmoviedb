@@ -9,7 +9,6 @@ const { Meta } = Card;
 
 const UpComing = () => {
   const { loading, data } = useMovieDB("/movie/upcoming");
-  console.log(data);
   return (
     <div>
       <Layout>
