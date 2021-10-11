@@ -2,6 +2,7 @@ import { Col, Layout, Row } from "antd";
 import React from "react";
 import { useParams } from "react-router";
 import useMovieDB from "../../hooks/useMovieDB";
+import useImageDB from "../../hooks/useImageDB";
 
 import Classes from "./SingleMovie.module.scss";
 
@@ -9,6 +10,7 @@ const { Content, Sider } = Layout;
 const SingleMoviePage = () => {
   const { id } = useParams();
   const { loading, data } = useMovieDB(`/movie/${id}`);
+  const { imgLoading, imgData } = useImageDB(`/movie/${id}/images`);
   return (
     <section>
       {loading ? (
@@ -45,14 +47,14 @@ const SingleMoviePage = () => {
                     <h2>{data.title}</h2>
                   </div>
                 </Col>
-                <Col md={12} xs={12}>
+                <Col md={24} xs={24}>
                   <div className={Classes.GenresSingleMovie}>
                     {data
                       ? data.genres.map((gerne) => <span>{gerne.name}</span>)
                       : null}
                   </div>
                 </Col>
-                <Col md={12} xs={12}>
+                <Col md={24} xs={24}>
                   <div className={Classes.LanguageSingleMovie}>
                     {data
                       ? data.spoken_languages.map((lang) => (
@@ -90,6 +92,30 @@ const SingleMoviePage = () => {
                   <div className={Classes.OverViewSingleMovie}>
                     OverView : <p>{data.overview}</p>
                   </div>
+                  <br />
+                </Col>
+                <Col md={24} xs={24}>
+                  <hr />
+                  <h1 style={{ fontFamily: "MmdBold", fontSize: "25px" }}>
+                    Gallery Of This Video
+                  </h1>
+                  <Row gutter={[10, 10]}>
+                    {imgLoading ? (
+                      <h4>Loading...</h4>
+                    ) : (
+                      imgData.backdrops.slice(1, 5).map((imgMovies) => (
+                        <Col md={12} xs={24}>
+                          <div style={{ marginRight: "50px" }}>
+                            <img
+                              width="100%"
+                              src={`https://image.tmdb.org/t/p/w500/${imgMovies.file_path}`}
+                              alt=""
+                            />
+                          </div>
+                        </Col>
+                      ))
+                    )}
+                  </Row>
                 </Col>
               </Row>
             </Content>

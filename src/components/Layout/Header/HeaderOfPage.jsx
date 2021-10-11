@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Col, Input, Row, Steps, Menu, Popover } from "antd";
+import { Col, Input, Row, Steps, Menu, Popover, Dropdown } from "antd";
 import {
   UserOutlined,
   SearchOutlined,
@@ -10,6 +10,22 @@ import {
   ContainerOutlined,
 } from "@ant-design/icons";
 import Logo from "./Logo/logo.png";
+import { Link } from "react-router-dom";
+const { SubMenu } = Menu;
+
+const movieMenu = (
+  <Menu>
+    <Link to="/movie/popular">
+      <Menu.Item>Popular Movie's</Menu.Item>
+    </Link>
+    <Menu.Item>
+      <Link to="/movie/top-rate">Top Rate Movie's</Link>
+    </Menu.Item>
+    <Menu.Item>
+      <Link to="/upcoming">Upcoming Movie's</Link>
+    </Menu.Item>
+  </Menu>
+);
 
 const { Step } = Steps;
 const HeaderOfPage = () => {
@@ -26,15 +42,19 @@ const HeaderOfPage = () => {
     <>
       <Row gutter={[20]} style={{ textAlign: "center" }}>
         <Col xs={0} md={4}>
-          <img
-            src={Logo}
-            alt="LogoIMG"
-            width="90px"
-            style={{ marginTop: "-13px" }}
-          />
+          <Link to="/">
+            <img
+              src={Logo}
+              alt="LogoIMG"
+              width="90px"
+              style={{ marginTop: "-13px" }}
+            />
+          </Link>
         </Col>
         <Col xs={0} md={2}>
-          <span className="HeaderMenuItems">Movie</span>
+          <Dropdown overlay={movieMenu} placement="bottomCenter" arrow>
+            <span className="HeaderMenuItems">Movie</span>
+          </Dropdown>
         </Col>
         <Col xs={0} md={2}>
           <span className="HeaderMenuItems">Series</span>
@@ -101,9 +121,17 @@ const HeaderOfPage = () => {
         mode="inline"
         theme="light"
       >
-        <Menu.Item key="1" icon={<VideoCameraOutlined />}>
-          Movies
-        </Menu.Item>
+        <SubMenu title="Movie" icon={<VideoCameraOutlined />}>
+          <Menu.Item>
+            <Link to="/movie/popular">Popular Movie's</Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="/movie/top-rate">Top Rate Movie's</Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="/movie/upcoming">Up Coming Movie's</Link>
+          </Menu.Item>
+        </SubMenu>
         <Menu.Item key="2" icon={<DesktopOutlined />} disabled>
           TV-Series
         </Menu.Item>
