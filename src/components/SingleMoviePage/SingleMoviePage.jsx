@@ -97,7 +97,8 @@ const SingleMoviePage = () => {
                 <Col md={24} xs={24}>
                   <hr />
                   <h1 style={{ fontFamily: "MmdBold", fontSize: "25px" }}>
-                    Gallery Of This Video
+                    Gallery Of{" "}
+                    <span style={{ color: "red" }}>{data.title}</span>
                   </h1>
                   <Row gutter={[10, 10]}>
                     {imgLoading ? (
