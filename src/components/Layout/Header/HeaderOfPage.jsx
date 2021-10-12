@@ -1,6 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
-import { Col, Input, Row, Steps, Menu, Popover, Dropdown } from "antd";
+import {
+  Col,
+  Input,
+  Row,
+  Steps,
+  Menu,
+  Popover,
+  Dropdown,
+  Avatar,
+  Spin,
+} from "antd";
 import {
   UserOutlined,
   SearchOutlined,
@@ -11,6 +21,7 @@ import {
 } from "@ant-design/icons";
 import Logo from "./Logo/logo.png";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../../context/UserContext";
 const { SubMenu } = Menu;
 
 const movieMenu = (
@@ -29,17 +40,35 @@ const movieMenu = (
 
 const { Step } = Steps;
 const HeaderOfPage = () => {
+  const { login, user, loadingUser, logout } = useContext(UserContext);
   const [littleMenu, setLittleMenu] = useState(false);
 
   const content = (
     <div style={{ textAlign: "left", cursor: "pointer" }}>
-      <p>UserProfile2</p>
-      <p>Content</p>
-      <p>LogOut</p>
+      <p>Profile</p>
+      <p onClick={logout}>LogOut</p>
     </div>
   );
+
   return (
     <>
+      {loadingUser ? (
+        <div
+          style={{
+            backgroundColor: "rgba(179, 179, 179, 0.9)",
+            left: 0,
+            top: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: 100,
+            position: "fixed",
+          }}
+        >
+          <div className="Spin" style={{ marginTop: "250px" }}>
+            <Spin size="large" />
+          </div>
+        </div>
+      ) : null}
       <Row gutter={[20]} style={{ textAlign: "center" }}>
         <Col xs={0} md={4}>
           <Link to="/">
@@ -92,9 +121,17 @@ const HeaderOfPage = () => {
           ></Step>
         </Col>
         <Col xs={2} md={2}>
-          <Popover content={content} title="MmdFard">
+          {user ? (
+            <Popover content={content} title={user ? user.username : null}>
+              <Avatar
+                style={{ cursor: "pointer" }}
+                src={`https://image.tmdb.org/t/p/w185/${user.avatar.tmdb.avatar_path}`}
+              />
+            </Popover>
+          ) : (
             <Steps>
               <Step
+                onClick={login}
                 style={{
                   cursor: "pointer",
                   fontFamily: "MmdReg",
@@ -103,10 +140,10 @@ const HeaderOfPage = () => {
                 icon={
                   <UserOutlined style={{ color: "grey", fontSize: "17px" }} />
                 }
-                description="Profile"
+                description="Login"
               ></Step>
             </Steps>
-          </Popover>
+          )}
         </Col>
       </Row>
       <Menu
