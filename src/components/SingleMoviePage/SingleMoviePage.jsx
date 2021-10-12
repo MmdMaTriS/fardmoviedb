@@ -1,4 +1,4 @@
-import { Col, Layout, Row } from "antd";
+import { Col, Layout, Row, Spin } from "antd";
 import React from "react";
 import { useParams } from "react-router";
 import useMovieDB from "../../hooks/useMovieDB";
@@ -14,7 +14,11 @@ const SingleMoviePage = () => {
   return (
     <section>
       {loading ? (
-        <div>Loading...</div>
+        <div>
+          <div className="Spin">
+            <Spin size="large" />
+          </div>
+        </div>
       ) : (
         <>
           <div className={Classes.UpSinglePage}>

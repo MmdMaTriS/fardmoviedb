@@ -22,7 +22,7 @@ const movieMenu = (
       <Link to="/movie/top-rate">Top Rate Movie's</Link>
     </Menu.Item>
     <Menu.Item>
-      <Link to="/upcoming">Upcoming Movie's</Link>
+      <Link to="/movie/upcoming">Upcoming Movie's</Link>
     </Menu.Item>
   </Menu>
 );

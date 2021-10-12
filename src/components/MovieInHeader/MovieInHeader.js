@@ -1,3 +1,4 @@
+import { Spin } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -12,7 +13,9 @@ const MovieInHeader = () => {
     <>
       <div className="MostViewVideo">
         {loading ? (
-          <h1>Loading...</h1>
+          <div className="Spin">
+            <Spin size="large" />
+          </div>
         ) : (
           data.results.slice(randomVideo, randomVideo + 1).map((movie) => (
             <>

@@ -1,4 +1,4 @@
-import { Badge, Card, Col, Layout, Row } from "antd";
+import { Badge, Card, Col, Layout, Row, Spin } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import useMovieDB from "../../../hooks/useMovieDB";
@@ -15,7 +15,9 @@ const PopularMovie = () => {
         <Content style={{ margin: "30px" }}>
           <Row gutter={[16, 16]}>
             {loading ? (
-              <h1>Loading...</h1>
+              <div className="Spin">
+                <Spin size="large" />
+              </div>
             ) : (
               data.results.map((movie) => (
                 <Col md={6} xs={24}>

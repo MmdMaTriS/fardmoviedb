@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row } from "antd";
+import { Col, Row, Spin } from "antd";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/swiper-bundle.css";
@@ -29,7 +29,9 @@ const LatestMovieSlider = () => {
                 className="mySwiper"
               >
                 {loading ? (
-                  <h1>Loading...</h1>
+                  <div className="Spin">
+                    <Spin size="large" />
+                  </div>
                 ) : (
                   data.results
                     .slice(randomVideo, randomVideo + 4)
