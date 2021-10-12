@@ -56,7 +56,7 @@ export default function UserProvider({ children }) {
       )
     ).json();
 
-    window.location = `https://www.themoviedb.org/authenticate/${request_token}?redirect_to=http://localhost:3000`;
+    window.location = `https://www.themoviedb.org/authenticate/${request_token}?redirect_to=http://fardmoviedb.vercel.app`;
     setLoadingUser(false);
   }
 
