@@ -37,6 +37,16 @@ const movieMenu = (
     </Menu.Item>
   </Menu>
 );
+const TVMenu = (
+  <Menu>
+    <Link to="/tv/popular">
+      <Menu.Item>Popular TV Show</Menu.Item>
+    </Link>
+    <Menu.Item>
+      <Link to="/tv/top-rate">Top Rate TV Show</Link>
+    </Menu.Item>
+  </Menu>
+);
 
 const { Step } = Steps;
 const HeaderOfPage = () => {
@@ -90,7 +100,9 @@ const HeaderOfPage = () => {
           </Dropdown>
         </Col>
         <Col xs={0} md={2}>
-          <span className="HeaderMenuItems">Series</span>
+          <Dropdown overlay={TVMenu} placement="bottomCenter" arrow>
+            <span className="HeaderMenuItems">Series</span>
+          </Dropdown>
         </Col>
         <Col xs={0} md={2}>
           <span className="HeaderMenuItems">About</span>
@@ -162,20 +174,25 @@ const HeaderOfPage = () => {
         mode="inline"
         theme="light"
       >
-        <SubMenu title="Movie" icon={<VideoCameraOutlined />}>
-          <Menu.Item>
+        <SubMenu key="120" title="Movie" icon={<VideoCameraOutlined />}>
+          <Menu.Item key="121">
             <Link to="/movie/popular">Popular Movie's</Link>
           </Menu.Item>
-          <Menu.Item>
+          <Menu.Item key="122">
             <Link to="/movie/top-rate">Top Rate Movie's</Link>
           </Menu.Item>
-          <Menu.Item>
+          <Menu.Item key="123">
             <Link to="/movie/upcoming">Up Coming Movie's</Link>
           </Menu.Item>
         </SubMenu>
-        <Menu.Item key="2" icon={<DesktopOutlined />} disabled>
-          TV-Series
-        </Menu.Item>
+        <SubMenu key="130" title="TV-Series" icon={<DesktopOutlined />}>
+          <Menu.Item key="131">
+            <Link to="/tv/popular">Popular TV Show</Link>
+          </Menu.Item>
+          <Menu.Item key="132">
+            <Link to="/tv/top-rate">Top Rate TV Show</Link>
+          </Menu.Item>
+        </SubMenu>
         <Menu.Item key="3" icon={<ContainerOutlined />}>
           About
         </Menu.Item>
