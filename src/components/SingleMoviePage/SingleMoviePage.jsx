@@ -54,7 +54,9 @@ const SingleMoviePage = () => {
                 <Col md={24} xs={24}>
                   <div className={Classes.GenresSingleMovie}>
                     {data
-                      ? data.genres.map((gerne) => <span>{gerne.name}</span>)
+                      ? data.genres.map((gerne) => (
+                          <span key={gerne.id}>{gerne.name}</span>
+                        ))
                       : null}
                   </div>
                 </Col>
@@ -62,7 +64,7 @@ const SingleMoviePage = () => {
                   <div className={Classes.LanguageSingleMovie}>
                     {data
                       ? data.spoken_languages.map((lang) => (
-                          <span>{lang.english_name}</span>
+                          <span key={lang.id}>{lang.english_name}</span>
                         ))
                       : null}
                   </div>
@@ -101,7 +103,7 @@ const SingleMoviePage = () => {
                 <Col md={24} xs={24}>
                   <hr />
                   <h1 style={{ fontFamily: "MmdBold", fontSize: "25px" }}>
-                    Gallery Of{" "}
+                    Gallery Of {""}
                     <span style={{ color: "red" }}>{data.title}</span>
                   </h1>
                   <Row gutter={[10, 10]}>
@@ -109,7 +111,7 @@ const SingleMoviePage = () => {
                       <h4>Loading...</h4>
                     ) : (
                       imgData.backdrops.slice(1, 5).map((imgMovies) => (
-                        <Col md={12} xs={24}>
+                        <Col md={12} xs={24} key={imgMovies.id}>
                           <div style={{ marginRight: "50px" }}>
                             <img
                               width="100%"
@@ -129,7 +131,7 @@ const SingleMoviePage = () => {
                 <h4>Production companies</h4>
                 <Row>
                   {data.production_companies.map((company) => (
-                    <Col md={24} xs={24}>
+                    <Col md={24} xs={24} key={company.id}>
                       <div className={Classes.ImgCompany}>
                         <img
                           style={{ width: "70px", maxHeight: "70px" }}

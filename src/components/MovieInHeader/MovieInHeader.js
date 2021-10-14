@@ -19,8 +19,9 @@ const MovieInHeader = () => {
         ) : (
           data.results.slice(randomVideo, randomVideo + 1).map((movie) => (
             <>
-              <Link to={`/movie/${movie.id}`}>
+              <Link to={`/movie/${movie.id}`} key={movie.id}>
                 <Swiper
+                  key={movie.id}
                   style={{
                     "--swiper-navigation-color": "#fff",
                     "--swiper-pagination-color": "#fff",

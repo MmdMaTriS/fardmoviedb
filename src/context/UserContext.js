@@ -59,9 +59,33 @@ export default function UserProvider({ children }) {
     window.location = `https://www.themoviedb.org/authenticate/${request_token}?redirect_to=http://fardmoviedb.vercel.app`;
     setLoadingUser(false);
   }
+  //
+  function useAccountData(endpoint, options) {
+    const sessionId = localStorage.getItem("session_id");
+    const userDB = localStorage.getItem("userDB");
+    const [accData, setAccData] = useState(null);
 
+    useEffect(() => {
+      if (sessionId && userDB) {
+        fetch(
+          `https://api.themoviedb.org/3/account/${
+            userDB.id
+          }/${endpoint}?api_key=fda513da3da338ad49c9fb831abddb97&session_id=${sessionId}&${new URLSearchParams(
+            options?.query
+          ).toString()}`
+        )
+          .then((r) => r.json())
+          .then(setAccData)
+          .finally(() => {});
+      }
+    }, [endpoint, options]);
+    return { accData };
+  }
+  //
   return (
-    <UserContext.Provider value={{ login, user, loadingUser, logout }}>
+    <UserContext.Provider
+      value={{ login, user, loadingUser, logout, useAccountData }}
+    >
       {children}
     </UserContext.Provider>
   );

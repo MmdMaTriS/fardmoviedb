@@ -1,0 +1,45 @@
+.HeaderProfilePanel {
+  background-image: url("./Images/backpro.jpg");
+  background-position: center;
+  background-size: cover;
+  .ProfileAvatar {
+    margin: 40px;
+  }
+  .PanelUserName {
+    .SpanUserName {
+      font-size: 16px;
+      font-family: "MmdBold", Courier, monospace;
+    }
+    .SpanUserGetName {
+      color: rgb(233, 233, 233);
+      font-size: 16px;
+      font-family: Courier, monospace;
+      background-color: rgba(102, 102, 102, 0.7);
+    }
+  }
+  .PanelLanguage {
+    .SpanLanguage {
+      font-size: 16px;
+      font-family: "MmdBold", Courier, monospace;
+    }
+    .SpanGetLanguage {
+      color: rgb(233, 233, 233);
+      font-size: 16px;
+      font-family: Courier, monospace;
+      background-color: rgba(102, 102, 102, 0.7);
+    }
+  }
+  .PanelUserID {
+    margin-top: 25px;
+    .SpanUserID {
+      font-size: 16px;
+      font-family: "MmdBold", Courier, monospace;
+    }
+    .SpanGetUserID {
+      color: rgb(233, 233, 233);
+      font-size: 16px;
+      font-family: Courier, monospace;
+      background-color: rgba(102, 102, 102, 0.7);
+    }
+  }
+}

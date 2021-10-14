@@ -4,6 +4,7 @@ import TopMovie from "./components/MoviesPage/TopMovies/TopMovie";
 import UpComing from "./components/MoviesPage/UpComing/UpComing";
 import Home from "./pages/Home/Home";
 import SingleMovie from "./pages/Movie/SingleMovie";
+import UserPanel from "./pages/UserPanel/UserPanel";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
       </Route>
       <Route path="/movie/top-rate">
         <TopMovie />
+      </Route>
+      <Route path="/user-panel">
+        <UserPanel />
       </Route>
       <Route path="/movie/:id">
         <SingleMovie />

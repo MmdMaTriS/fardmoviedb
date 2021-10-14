@@ -45,8 +45,12 @@ const HeaderOfPage = () => {
 
   const content = (
     <div style={{ textAlign: "left", cursor: "pointer" }}>
-      <p>Profile</p>
-      <p onClick={logout}>LogOut</p>
+      <Link to="/user-panel">
+        <p style={{ fontFamily: "MmdBold", color: "black" }}>Profile</p>
+      </Link>
+      <p onClick={logout} style={{ fontFamily: "MmdBold", color: "black" }}>
+        LogOut
+      </p>
     </div>
   );
 
