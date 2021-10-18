@@ -1,16 +1,70 @@
-import { Col, Layout, Row, Spin } from "antd";
-import React from "react";
+import { Button, Col, Layout, Row, Spin } from "antd";
+import React, { useState } from "react";
 import { useParams } from "react-router";
 import useMovieDB from "../../hooks/useMovieDB";
 import useImageDB from "../../hooks/useImageDB";
+import {
+  HeartOutlined,
+  PlusCircleOutlined,
+  CheckCircleFilled,
+} from "@ant-design/icons";
 
 import Classes from "./SingleMovie.module.scss";
 
 const { Content, Sider } = Layout;
 const SingleMoviePage = () => {
+  const [favoriteMovie, setFavoriteMovie] = useState(false);
+  const [watchlistMovie, setWatchlistMovie] = useState(false);
   const { id } = useParams();
   const { loading, data } = useMovieDB(`/movie/${id}`);
   const { imgLoading, imgData } = useImageDB(`/movie/${id}/images`);
+
+  const session_id = localStorage.getItem("session_id");
+  const userDB = JSON.parse(localStorage.getItem("userDB"));
+
+  async function addToFavorite() {
+    if (session_id && userDB) {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/account/${userDB.id}/favorite?api_key=fda513da3da338ad49c9fb831abddb97&session_id=${session_id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            media_type: "movie",
+            media_id: id,
+            favorite: true,
+          }),
+        }
+      );
+      return setFavoriteMovie(response.ok);
+    } else {
+      alert("First Login/SignUP");
+    }
+  }
+
+  async function addToWatchList() {
+    if (session_id && userDB) {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/account/${userDB.id}/watchlist?api_key=fda513da3da338ad49c9fb831abddb97&session_id=${session_id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            media_type: "movie",
+            media_id: id,
+            watchlist: true,
+          }),
+        }
+      );
+      return setWatchlistMovie(response.ok);
+    } else {
+      alert("First Login/SingUp");
+    }
+  }
   return (
     <section>
       {loading ? (
@@ -49,6 +103,60 @@ const SingleMoviePage = () => {
                 <Col md={24} xs={24}>
                   <div className={Classes.TitleSingleMovie}>
                     <h2>{data.title}</h2>
+                  </div>
+                </Col>
+                <Col md={12} xs={12} style={{ marginBottom: "30px" }}>
+                  <div
+                    onClick={addToFavorite}
+                    className={Classes.FavoriteMovie}
+                    style={{
+                      cursor: "pointer",
+                      display: "inline-block",
+                    }}
+                  >
+                    <span style={{ fontSize: "16px", fontFamily: "MmdBold" }}>
+                      {favoriteMovie ? "Favorited" : "Add To Favorite"}
+                    </span>{" "}
+                    {""}
+                    <Button
+                      type="primary"
+                      shape="circle"
+                      icon={
+                        favoriteMovie ? (
+                          <CheckCircleFilled />
+                        ) : (
+                          <HeartOutlined />
+                        )
+                      }
+                      size={80}
+                    />
+                  </div>
+                </Col>
+                <Col md={12} xs={12} style={{ marginBottom: "30px" }}>
+                  <div
+                    onClick={addToWatchList}
+                    className={Classes.FavoriteMovie}
+                    style={{
+                      cursor: "pointer",
+                      display: "inline-block",
+                    }}
+                  >
+                    <span style={{ fontSize: "16px", fontFamily: "MmdBold" }}>
+                      {watchlistMovie ? "In WatchList" : "Add to WatchList"}
+                    </span>{" "}
+                    {""}
+                    <Button
+                      type="primary"
+                      shape="circle"
+                      icon={
+                        watchlistMovie ? (
+                          <CheckCircleFilled />
+                        ) : (
+                          <PlusCircleOutlined />
+                        )
+                      }
+                      size={80}
+                    />
                   </div>
                 </Col>
                 <Col md={24} xs={24}>

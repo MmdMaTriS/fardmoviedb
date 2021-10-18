@@ -90,3 +90,9 @@
     font-size: 12px;
   }
 }
+
+.FavoriteMovie {
+  &:hover {
+    color: red;
+  }
+}

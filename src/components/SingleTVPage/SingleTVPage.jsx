@@ -1,18 +1,68 @@
-import { Card, Col, Collapse, Layout, Row, Spin } from "antd";
-import React from "react";
+import { Button, Card, Col, Collapse, Layout, Row, Spin } from "antd";
+import React, { useState } from "react";
 import { useParams } from "react-router";
 import useMovieDB from "../../hooks/useMovieDB";
 import useImageDB from "../../hooks/useImageDB";
-
+import {
+  HeartOutlined,
+  PlusCircleOutlined,
+  CheckCircleFilled,
+} from "@ant-design/icons";
 import Classes from "./SingleTVPage.module.scss";
 
 const { Content, Sider } = Layout;
 const { Panel } = Collapse;
 const SingleTVPage = () => {
+  const [favoriteTV, setFavoriteTV] = useState(false);
+  const [watchlistTV, setWatchlistTV] = useState(false);
+  const session_id = localStorage.getItem("session_id");
+  const userDB = JSON.parse(localStorage.getItem("userDB"));
   const { id } = useParams();
   const { loading, data } = useMovieDB(`/tv/${id}`);
   const { imgLoading, imgData } = useImageDB(`/tv/${id}/images`);
-  console.log(data);
+  async function addToFavorite() {
+    if (session_id && userDB) {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/account/${userDB.id}/favorite?api_key=fda513da3da338ad49c9fb831abddb97&session_id=${session_id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            media_type: "tv",
+            media_id: id,
+            favorite: true,
+          }),
+        }
+      );
+      return setFavoriteTV(response.ok);
+    } else {
+      alert("First Login/SignUp");
+    }
+  }
+
+  async function addToWatchList() {
+    if (session_id && userDB) {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/account/${userDB.id}/watchlist?api_key=fda513da3da338ad49c9fb831abddb97&session_id=${session_id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            media_type: "tv",
+            media_id: id,
+            watchlist: true,
+          }),
+        }
+      );
+      return setWatchlistTV(response.ok);
+    } else {
+      alert("First Login/SignUp");
+    }
+  }
   return (
     <section>
       {loading ? (
@@ -51,6 +101,56 @@ const SingleTVPage = () => {
                 <Col md={24} xs={24}>
                   <div className={Classes.TitleSingleMovie}>
                     <h2>{data.name}</h2>
+                  </div>
+                </Col>
+                <Col md={12} xs={12} style={{ marginBottom: "30px" }}>
+                  <div
+                    onClick={addToFavorite}
+                    className={Classes.FavoriteMovie}
+                    style={{
+                      cursor: "pointer",
+                      display: "inline-block",
+                    }}
+                  >
+                    <span style={{ fontSize: "16px", fontFamily: "MmdBold" }}>
+                      {favoriteTV ? "Favorited" : "Add To Favorite"}
+                    </span>{" "}
+                    {""}
+                    <Button
+                      type="primary"
+                      shape="circle"
+                      icon={
+                        favoriteTV ? <CheckCircleFilled /> : <HeartOutlined />
+                      }
+                      size={80}
+                    />
+                  </div>
+                </Col>
+                <Col md={12} xs={12} style={{ marginBottom: "30px" }}>
+                  <div
+                    onClick={addToWatchList}
+                    className={Classes.FavoriteMovie}
+                    style={{
+                      cursor: "pointer",
+                      display: "inline-block",
+                    }}
+                  >
+                    <span style={{ fontSize: "16px", fontFamily: "MmdBold" }}>
+                      {watchlistTV ? "In WatchList" : "Add to WatchList"}
+                    </span>{" "}
+                    {""}
+                    <Button
+                      type="primary"
+                      shape="circle"
+                      icon={
+                        watchlistTV ? (
+                          <CheckCircleFilled />
+                        ) : (
+                          <PlusCircleOutlined />
+                        )
+                      }
+                      size={80}
+                    />
                   </div>
                 </Col>
                 <Col md={24} xs={24}>
