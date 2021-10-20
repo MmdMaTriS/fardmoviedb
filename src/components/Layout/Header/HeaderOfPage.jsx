@@ -22,6 +22,7 @@ import {
 import Logo from "./Logo/logo.png";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../../context/UserContext";
+import SearchBar from "../SearchBar/SearchBar";
 const { SubMenu } = Menu;
 
 const movieMenu = (
@@ -114,18 +115,7 @@ const HeaderOfPage = () => {
             onClick={() => setLittleMenu(!littleMenu)}
           ></Step>
         </Col>
-        <Col xs={19} md={10}>
-          <div className="SearchBarHeader">
-            <Input
-              placeholder="Search Movie & Tv-Series..."
-              type="text"
-              style={{
-                direction: "rtl",
-                borderRadius: 25,
-              }}
-            ></Input>
-          </div>
-        </Col>
+        <SearchBar />
         <Col xs={0} md={2}>
           <Step
             style={{
