@@ -1,16 +1,6 @@
 import React, { useState, useContext } from "react";
 
-import {
-  Col,
-  Input,
-  Row,
-  Steps,
-  Menu,
-  Popover,
-  Dropdown,
-  Avatar,
-  Spin,
-} from "antd";
+import { Col, Row, Steps, Menu, Popover, Dropdown, Avatar, Spin } from "antd";
 import {
   UserOutlined,
   SearchOutlined,
