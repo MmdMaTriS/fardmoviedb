@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Input, AutoComplete, Rate, Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import useDebounce from "../../../hooks/useDebounce";
+// import useDebounce from "../../../hooks/useDebounce";
 import { useHistory } from "react-router";
 
 const renderTitle = (title) => (
@@ -40,7 +40,7 @@ const SearchBar = () => {
   const [query, setQuery] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [searchItems, setSearchItems] = useState([]);
-  const debounceQuery = useDebounce(query, 300);
+  // const debounceQuery = useDebounce(query, 300);
 
   function handleShowMovie(id) {
     const data = searchItems.find((d) => d.id == id);
@@ -56,14 +56,14 @@ const SearchBar = () => {
   }
 
   useEffect(() => {
-    if (debounceQuery) {
+    if (query) {
       fetch(
         `https://api.themoviedb.org/3/search/multi?api_key=fda513da3da338ad49c9fb831abddb97&language=en-US&page=1&include_adult=false&query=${query}`
       )
         .then((r) => r.json())
         .then((data) => setSearchItems(data.results));
     }
-  }, [debounceQuery]);
+  }, [query]);
 
   function makeOptions() {
     return searchItems && searchItems.length
