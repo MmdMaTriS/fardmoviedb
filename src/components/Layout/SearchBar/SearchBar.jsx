@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { Col, Input, AutoComplete } from "antd";
+import React, { useEffect, useState } from "react";
+import { Col, Input, AutoComplete, Rate, Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import useDebounce from "../../../hooks/useDebounce";
+import { useHistory } from "react-router";
 
 const renderTitle = (title) => (
   <span>
@@ -18,8 +20,8 @@ const renderTitle = (title) => (
   </span>
 );
 
-const renderItem = (title, count) => ({
-  value: title,
+const renderItem = (title, id, label) => ({
+  value: `${id}`,
   label: (
     <div
       style={{
@@ -28,43 +30,41 @@ const renderItem = (title, count) => ({
       }}
     >
       {title}
-      <span>
-        <UserOutlined /> {count}
-      </span>
+      <span>{label}</span>
     </div>
   ),
 });
 
-// const options = [
-//   {
-//     label: renderTitle("Libraries"),
-//     options: [
-//       renderItem("AntDesign", 10000),
-//       renderItem("AntDesign UI", 10600),
-//     ],
-//   },
-//   {
-//     label: renderTitle("Solutions"),
-//     options: [
-//       renderItem("AntDesign UI FAQ", 60100),
-//       renderItem("AntDesign FAQ", 30010),
-//     ],
-//   },
-//   {
-//     label: renderTitle("Articles"),
-//     options: [renderItem("AntDesign design language", 100000)],
-//   },
-// ];
-
 const SearchBar = () => {
+  const history = useHistory();
+  const [query, setQuery] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [searchItems, setSearchItems] = useState([]);
-  function handleSearch(query) {
-    fetch(
-      `https://api.themoviedb.org/3/search/multi?api_key=fda513da3da338ad49c9fb831abddb97&language=en-US&page=1&include_adult=false&query=${query}`
-    )
-      .then((r) => r.json())
-      .then((data) => setSearchItems(data.results));
+  const debounceQuery = useDebounce(query, 300);
+
+  function handleShowMovie(id) {
+    const data = searchItems.find((d) => d.id == id);
+    setInputValue("");
+    switch (data.media_type) {
+      case "movie":
+        return history.push(`/movie/${id}`);
+      case "tv":
+        return history.push(`/tv/${id}`);
+      default:
+        break;
+    }
   }
+
+  useEffect(() => {
+    if (debounceQuery) {
+      fetch(
+        `https://api.themoviedb.org/3/search/multi?api_key=fda513da3da338ad49c9fb831abddb97&language=en-US&page=1&include_adult=false&query=${query}`
+      )
+        .then((r) => r.json())
+        .then((data) => setSearchItems(data.results));
+    }
+  }, [debounceQuery]);
+
   function makeOptions() {
     return searchItems && searchItems.length
       ? [
@@ -72,35 +72,44 @@ const SearchBar = () => {
             label: renderTitle("Movies"),
             options: searchItems
               .filter((item) => item.media_type === "movie")
-              .map((i) => renderItem(i.title, 60100)),
+              .map((i) =>
+                renderItem(
+                  i.title,
+                  i.id,
+                  <Rate
+                    disabled
+                    style={{ fontSize: "14px" }}
+                    defaultValue={i.vote_average / 2}
+                  />
+                )
+              ),
           },
           {
             label: renderTitle("TV Shows"),
             options: searchItems
               .filter((item) => item.media_type === "tv")
-              .map((i) => renderItem(i.name, 60100)),
+              .map((i) => renderItem(i.name, i.id)),
           },
           {
             label: renderTitle("Persons"),
             options: searchItems
               .filter((item) => item.media_type === "person")
-              .map((i) => renderItem(i.name, 60100)),
+              .map((i) =>
+                renderItem(
+                  i.name,
+                  i.id,
+                  <Avatar
+                    {...(i.profile_path
+                      ? {
+                          src: `https://image.tmdb.org/t/p/w45/${i.profile_path}`,
+                        }
+                      : { icon: <UserOutlined /> })}
+                  />
+                )
+              ),
           },
-        ]
-      : [
-          {
-            label: renderTitle("Movies"),
-            options: [],
-          },
-          {
-            label: renderTitle("TV Shows"),
-            options: [],
-          },
-          {
-            label: renderTitle("Persons"),
-            options: [],
-          },
-        ];
+        ].filter((type) => type.options.length)
+      : [];
   }
   return (
     <Col xs={19} md={10}>
@@ -111,7 +120,10 @@ const SearchBar = () => {
           width: 250,
         }}
         options={makeOptions()}
-        onSearch={handleSearch}
+        onSearch={(e) => setQuery(e)}
+        onSelect={handleShowMovie}
+        onChange={setInputValue}
+        value={inputValue}
       >
         <Input
           placeholder="Search Movie & Tv-Series..."
@@ -127,18 +139,3 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
-
-{
-  /* <Col xs={19} md={10}>
-<div className="SearchBarHeader">
-  <Input
-    placeholder="Search Movie & Tv-Series..."
-    type="text"
-    style={{
-      direction: "rtl",
-      borderRadius: 25,
-    }}
-  ></Input>
-</div>
-</Col> */
-}
