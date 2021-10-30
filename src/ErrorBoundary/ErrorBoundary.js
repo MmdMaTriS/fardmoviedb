@@ -1,4 +1,5 @@
 import React from "react";
+import NeedVPN from "./NeedVPN/NeedVPN";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class ErrorBoundary extends React.Component {
   render() {
     switch (this.state.error) {
       case "Failed to fetch":
-        return "VPN Bezan";
+        return <NeedVPN />;
 
       default:
         return this.props.children;
