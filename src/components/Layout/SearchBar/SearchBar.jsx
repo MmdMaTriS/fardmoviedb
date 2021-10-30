@@ -5,6 +5,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router";
 
 const renderTitle = (title) => (
+  
   <span>
     {title}
     <a
@@ -111,6 +112,7 @@ const SearchBar = () => {
         ].filter((type) => type.options.length)
       : [];
   }
+
   return (
     <Col xs={19} md={10}>
       <AutoComplete

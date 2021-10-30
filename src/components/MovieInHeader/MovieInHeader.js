@@ -17,7 +17,7 @@ const MovieInHeader = () => {
             <Spin size="large" />
           </div>
         ) : (
-          data.results.slice(randomVideo, randomVideo + 1).map((movie) => (
+          data?.results?.slice(randomVideo, randomVideo + 1).map((movie) => (
             <>
               <Link to={`/movie/${movie.id}`} key={movie.id}>
                 <Swiper

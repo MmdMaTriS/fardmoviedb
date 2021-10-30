@@ -42,7 +42,7 @@ const PopMovieSlider = () => {
           {loading ? (
             <h1>Loading...</h1>
           ) : (
-            data.results.map((movie) => (
+            data?.results?.map((movie) => (
               <SwiperSlide key={movie.id}>
                 <Link to={`/movie/${movie.id}`}>
                   <Card

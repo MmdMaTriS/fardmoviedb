@@ -3,6 +3,13 @@ import { useEffect, useState } from "react";
 export default function useMovieDB(endpoint, options) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (error) {
+      throw new Error(error);
+    }
+  }, [error]);
 
   useEffect(() => {
     setLoading(true);
@@ -11,8 +18,14 @@ export default function useMovieDB(endpoint, options) {
         options?.query
       ).toString()}`
     )
-      .then((r) => r.json())
+      .then((r) => {
+        return r.json();
+      })
       .then(setData)
+      .catch((e) => {
+        setError(e.message);
+      })
+
       .finally(() => {
         setLoading(false);
       });

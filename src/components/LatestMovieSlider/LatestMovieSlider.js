@@ -33,8 +33,8 @@ const LatestMovieSlider = () => {
                     <Spin size="large" />
                   </div>
                 ) : (
-                  data.results
-                    .slice(randomVideo, randomVideo + 4)
+                  data?.results
+                    ?.slice(randomVideo, randomVideo + 4)
                     .map((movie) => (
                       <>
                         <SwiperSlide>
